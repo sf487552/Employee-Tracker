@@ -62,7 +62,9 @@ app.post("/api/add-department", (req, res) => {
     const {deptName} = req.body;
 
     departmentDatabase.addDepartment(deptName).then((data) => {
-        console.log(data)
+        if (data[0].affectedRows) {
+            res.json('${deptName} has been added to the Database')
+        }
         res.json(data);
     });
 });
@@ -71,7 +73,9 @@ app.post("/api/add-role", (req, res) => {
     const {deptRole} = req.body;
 
     departmentDatabase.addRole(deptRole).then((data) => {
-        console.log(data)
+        if (data[0].affectedRows) {
+            res.json('${deptRole} has been added to the Database')
+        }
         res.json(data);
     });
 });
@@ -80,9 +84,40 @@ app.post("/api/add-employee", (req, res) => {
     const {deptEmployee} = req.body;
 
     departmentDatabase.addEmployee(deptEmployee).then((data) => {
-        console.log(data)
-        res.json(data);
+        if (data[0].affectedRows) {
+            res.json('${deptEmployee} has been added to the Database')
+        }
     });
 });
+
+app.deleteDepartment("/api/department/:id", (req, res) => {
+    const id = req.params.id;
+
+    departmentDatabase.deleteDepartment(id).then((data) => {
+        if (data[0].affectedRows) {
+            res.json('Department ${id} has been deleted')
+        }
+    })
+})
+
+app.deleteRole("/api/roles/:id", (req, res) => {
+    const id = req.params.id;
+
+    departmentDatabase.deleteRole(id).then((data) => {
+        if (data[0].affectedRows) {
+            res.json('Role ${id} has been deleted')
+        }
+    })
+})
+
+app.deleteEmployee("/api/employee/:id", (req, res) => {
+    const id = req.params.id;
+
+    departmentDatabase.deleteEmployee(id).then((data) => {
+        if (data[0].affectedRows) {
+            res.json('Employee ${id} has been deleted')
+        }
+    })
+})
 
 app.listen(PORT, () => console.log('RUNNING ON ${PORT}!'));
