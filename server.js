@@ -7,19 +7,19 @@ const app = express();
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
-app.get("/api/department", (req, res) => {
+app.get("/api/department/", (req, res) => {
     departmentDatabase.selectAllDepartments().then(([rows]) => {
         res.json(rows);
     })
 });
 
-app.get("/api/roles", (req, res) => {
+app.get("/api/roles/", (req, res) => {
     departmentDatabase.selectAllRoles().then(([rows]) => {
         res.json(rows);
     })
 });
 
-app.get("/api/employee", (req, res) => {
+app.get("/api/employee/", (req, res) => {
     departmentDatabase.selectAllEmployees().then(([rows]) => {
         res.json(rows);
     })
@@ -90,7 +90,7 @@ app.post("/api/add-employee", (req, res) => {
     });
 });
 
-app.deleteDepartment("/api/department/:id", (req, res) => {
+app.delete("/api/department/:id", (req, res) => {
     const id = req.params.id;
 
     departmentDatabase.deleteDepartment(id).then((data) => {
@@ -100,7 +100,7 @@ app.deleteDepartment("/api/department/:id", (req, res) => {
     })
 })
 
-app.deleteRole("/api/roles/:id", (req, res) => {
+app.delete("/api/roles/:id", (req, res) => {
     const id = req.params.id;
 
     departmentDatabase.deleteRole(id).then((data) => {
@@ -110,7 +110,7 @@ app.deleteRole("/api/roles/:id", (req, res) => {
     })
 })
 
-app.deleteEmployee("/api/employee/:id", (req, res) => {
+app.delete("/api/employee/:id", (req, res) => {
     const id = req.params.id;
 
     departmentDatabase.deleteEmployee(id).then((data) => {

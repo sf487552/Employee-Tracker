@@ -1,6 +1,6 @@
 const connection = require("./connection");
 
-class DepartmentDatabase {
+class departmentDatabase {
     constructor(connection) {
         this.connection = connection;
     }
@@ -45,6 +45,14 @@ class DepartmentDatabase {
     deleteDepartment(id) {
         return this.connection.promise().query("DELETE FROM department WHERE id = ?", id)
     }
+
+    deleteRole(title, salary) {
+        return this.connection.promise().query("DELETE FROM roles WHERE id = ?", [title, salary])
+    }
+
+    deleteEmployee(first_name, last_name, role_id, manager_id) {
+        return this.connection.promise().query("DELETE FROM employee WHERE id = ?", [first_name, last_name, role_id, manager_id])
+    }
 }
 
-module.exports = new DepartmentDatabase(connection);
+module.exports = new departmentDatabase(connection);
