@@ -32,7 +32,7 @@ function startPrompt() {
             addRolePrompt();
         }
         else if (data.main === 'Add an employee') {
-            addEmployPrompt();
+            addEmployeePrompt();
         }
         else if (data.main === 'update an employee role') {
             updatedRolePrompt();
@@ -103,6 +103,40 @@ function addRolePrompt() {
         ]
     inquirer.prompt(addRoleArray).then(data => {
         database.addRole(data.title, data.salary, data.dept_id).then(() => {
+            console.log('Successfully added!')
+        })
+            .then(() => {
+                return startPrompt();
+            })
+    });
+}
+
+function addEmployeePrompt() {
+    const addEmployeeArray =
+        [
+            {
+                type: 'input',
+                name: 'first_name',
+                message: 'Please enter first name',
+            },
+            {
+                type: 'input',
+                name: 'last_name',
+                message: 'Please enter last name',
+            },
+            {
+                type: 'input',
+                name: 'role_id',
+                message: 'please enter Role ID',
+            },
+            {
+                type: 'input',
+                name: 'manager_id',
+                message: 'please enter Manager ID',
+            },
+        ]
+    inquirer.prompt(addEmployeeArray).then(data => {
+        database.addEmployee(data.first_name, data.last_name, data.role_id, data.manager_id).then(() => {
             console.log('Successfully added!')
         })
             .then(() => {
